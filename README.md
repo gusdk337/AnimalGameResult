@@ -16,12 +16,14 @@ https://play.google.com/store/apps/details?id=com.crunkymacaron.animalgame
 
 ## 핵심 기능
 1. 튜토리얼
+   &nbsp;
    > - InfoManager를 통해 신규유저 판독
    > - EventManager를 활용하여 신규유저일 때 이벤트 발동
    > - 이전 버튼과 다음 버튼을 이용하여 이미지를 앞뒤로 넘겨 튜토리얼 가능
+
 <details>
  <summary>코드 보기</summary>
-
+ 
 ```
 using System.Collections;
 using System.Collections.Generic;
@@ -189,3 +191,14 @@ public class UITutorial : MonoBehaviour
 
 ```
 ▲ UITutorial 스크립트
+
+&nbsp;
+</details>
+&nbsp;
+
+2. 동물 합치기
+   
+<details>
+ <summary>코드 보기</summary>
+
+</details>
