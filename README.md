@@ -4,23 +4,23 @@
 <img src="https://github.com/gusdk337/AnimalGameResult/assets/51481890/e3d18a6d-008b-4106-90f3-b923aa9a54fc" width="200">
 </p>
 
-## 게임 소개
+## 🎮게임 소개
 같은 동물을 합쳐 다음 단계의 동물을 만들고 점수를 쌓는 게임
 
 &nbsp;
 
-## 개발 기간 & 개발 인원
+## 👩🏻‍💻개발 기간 & 개발 인원
 - 개발 기간: 2023.10.10~2023.10.21(11일)
 - 개발 인원: 1인
   
 &nbsp;
 
-## 구글 플레이스토어 링크
+## 🔗구글 플레이스토어 링크
 https://play.google.com/store/apps/details?id=com.crunkymacaron.animalgame
 
 &nbsp;
 
-## 핵심 기능
+## ❗핵심 기능
 1. 튜토리얼
    > - InfoManager를 통해 신규유저 판독
    > - EventManager를 활용하여 신규유저일 때 이벤트 발동
@@ -390,14 +390,14 @@ public class GameOverLine : MonoBehaviour
 </details>
 &nbsp;
 
-## 플레이 영상
+## ▶️플레이 영상
 
-## BGM
+## 🎶BGM
 
 https://github.com/gusdk337/AnimalGameResult/assets/51481890/fa2ba99d-a19c-47a1-b7a0-a953ebefe7b5
 
-▲ 타이틀 음악 직접 제작
+▲ 타이틀 BGM 자체 제작
 
 https://github.com/gusdk337/AnimalGameResult/assets/51481890/4eeee515-dac9-49a3-99f9-28f933c40238
 
-▲ 메인 BGM 직접 제작
+▲ 메인 BGM 자체 제작
