@@ -6,17 +6,22 @@
 
 ## 게임 소개
 같은 동물을 합쳐 다음 단계의 동물을 만들고 점수를 쌓는 게임
- 
+
+&nbsp;
+
 ## 개발 기간 & 개발 인원
 - 개발 기간: 2023.10.10~2023.10.21(11일)
 - 개발 인원: 1인
+  
+&nbsp;
 
 ## 구글 플레이스토어 링크
 https://play.google.com/store/apps/details?id=com.crunkymacaron.animalgame
 
+&nbsp;
+
 ## 핵심 기능
 1. 튜토리얼
-   &nbsp;
    > - InfoManager를 통해 신규유저 판독
    > - EventManager를 활용하여 신규유저일 때 이벤트 발동
    > - 이전 버튼과 다음 버튼을 이용하여 이미지를 앞뒤로 넘겨 튜토리얼 가능
@@ -24,7 +29,7 @@ https://play.google.com/store/apps/details?id=com.crunkymacaron.animalgame
 <details>
  <summary>코드 보기</summary>
  
-```
+```ts
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,7 +72,7 @@ public class InfoManager
 ```
 ▲ InfoManager 스크립트 
 
-```
+```ts
         string bestScorePath = InfoManager.instance.bestScorePath;
         Debug.LogFormat("<color=cyan>{0}</color>", bestScorePath);
         if (!InfoManager.instance.IsNewbie(bestScorePath))
@@ -86,7 +91,7 @@ public class InfoManager
 ```
 ▲ App 스크립트 중 일부
 
-```
+```ts
         EventManager.instance.ShowToturial = () =>
         {
             this.director.uiTutorial.gameObject.SetActive(true);
@@ -101,7 +106,7 @@ public class InfoManager
 ```
 ▲ GameMain 스크립트 중 일부
 
-```
+```ts
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -191,14 +196,200 @@ public class UITutorial : MonoBehaviour
 
 ```
 ▲ UITutorial 스크립트
-
-&nbsp;
 </details>
 &nbsp;
 
 2. 동물 합치기
-   
+   > - 각각의 동물들이 한 스크립트를 사용중이기 때문에 static을 사용하여 동물이 합쳐질 때 하나의 동물이 생성되게 함
+   > - EventManager를 활용하여 점수 추가
+
+<details>
+ <summary>코드 보기</summary>
+ 
+```ts
+    private static bool hasExecuted = false;    //한 번만 실행되도록
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (this.gameObject.tag == collision.gameObject.tag && !hasExecuted)    //닿았을 때 2마리가 아닌 1마리가 나오도록(각각의 동물들이 한 스크립트를 쓰기 때문)
+        {
+            int animalIndex = -1;
+
+            switch (this.gameObject.tag)
+            {
+                case "Egg": //Egg끼리 닿으면 animalIndex를 1로 설정하고 플러스 점수를 1점으로 설정
+                    animalIndex = 1;
+                    this.plusScore = 1;
+                    break;
+
+                case "Chicken":
+                    animalIndex = 2;
+                    this.plusScore = 3;
+                    break;
+
+                case "Frog":
+                    animalIndex = 3;
+                    this.plusScore = 6;
+                    break;
+
+                case "Rabbit":
+                    animalIndex = 4;
+                    this.plusScore = 10;
+                    break;
+
+                case "Cat":
+                    animalIndex = 5;
+                    this.plusScore = 15;
+                    break;
+
+                case "Dog":
+                    animalIndex = 6;
+                    this.plusScore = 21;
+                    break;
+
+                case "Pig":
+                    animalIndex = 7;
+                    this.plusScore = 28;
+                    break;
+
+                case "Penguin":
+                    animalIndex = 8;
+                    this.plusScore = 36;
+                    break;
+
+                case "Bear":
+                    animalIndex = 9;
+                    this.plusScore = 45;
+                    break;
+
+                case "Reindeer":
+                    animalIndex = 10;
+                    this.plusScore = 55;
+                    break;
+
+                case "Unicorn":
+                    animalIndex = 100;
+                    break;
+            }
+
+            if (animalIndex != -1 && animalIndex != 100)    //유니콘 제외(유니콘이 가장 높은 동물이기 때문)
+            {
+                GameObject parent = GameObject.Find("Animals");
+                GameObject newAnimal = Instantiate(animals[animalIndex], this.transform.position, Quaternion.identity);
+                newAnimal.transform.parent = parent.transform;
+                Rigidbody2D newAnimalRb = newAnimal.GetComponent<Rigidbody2D>();
+
+                if (newAnimal.CompareTag("Dog") || newAnimal.CompareTag("Pig") || newAnimal.CompareTag("Penguin") || newAnimal.CompareTag("Bear") || newAnimal.CompareTag("Reindeer"))
+                {
+                    newAnimalRb.gravityScale = 1;   //윗 단계 동물들의 중력을 낮게 설정
+                }
+                else if(newAnimal.CompareTag("Egg") || newAnimal.CompareTag("Chicken") || newAnimal.CompareTag("Frog") || newAnimal.CompareTag("Rabbit") || newAnimal.CompareTag("Cat"))
+                {
+                    newAnimalRb.gravityScale = 10;  //아래 단계 동물들의 중력을 높게 설정
+                }
+                this.gameObject.SetActive(false);
+                collision.gameObject.SetActive(false);
+                SoundManager.PlaySFX("Pop");
+                EventManager.instance.addScore(this.plusScore); //해당 점수 추가
+                hasExecuted = true;
+            }
+            else if(animalIndex == 100)
+            {
+                Debug.Log("유니콘끼리 부딪힘");
+            }
+        }
+        else
+        {
+            hasExecuted = false;
+        }
+    }
+
+```
+▲ AnimalController 스크립트 중 일부
+</details>
+&nbsp;
+
+3. 게임 오버
+   > - 게임오버라인에 특정 시간동안 동물이 머물러 있으면 게임 오버
+   > - InfoManager에 베스트스코어 저장
+
 <details>
  <summary>코드 보기</summary>
 
+```ts
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameOverLine : MonoBehaviour
+{
+    public bool isGameOver;
+    private bool isInsideCollider = false;
+
+    public bool isCounting;
+    public float timer = 0.0f;
+
+    private void OnTriggerEnter2D(Collider2D collision) //게임오버라인에 들어오면
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Animal"))   
+        {
+            this.isInsideCollider = true;
+            StartCoroutine(this.CheckColliderStay());   //시간 측정 시작
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)  //게임오버라인에서 나가면(동물이 잘 내려가면)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Animal"))
+        {
+            this.isCounting = false;
+            this.isInsideCollider = false;
+            StopCoroutine(this.CheckColliderStay());
+        }
+
+    }
+
+
+    private IEnumerator CheckColliderStay()
+    {
+        float timer = 0.0f;
+
+        while (this.isInsideCollider)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= 1.2f)  //1.2초 뒤에 게임오버
+            {
+                this.isGameOver = true;
+                break;
+            }
+            yield return null;
+        }
+    }
+}
+
+```
+▲ GameOverLine 스크립트
+
+```ts
+        if (this.gameOverLine.isGameOver)
+        {
+            Destroy(this.objects);  //3d오브젝트들 정리
+
+            this.director.uiGameOver.txtScore.text = this.director.uiScore.txtCurrentScore.text;
+            this.director.uiGameOver.txtBestScore.text = this.director.uiScore.txtBestScore.text;
+
+            InfoManager.instance.BestScoreInfo.bestScore = this.director.uiScore.bestScore;
+            InfoManager.instance.SaveBestScoreInfo();   //베스트스코어 저장
+            this.director.uiGameOver.gameObject.SetActive(true);
+
+            this.newAnimal.SetActive(false);
+        }
+```
+▲ GameMain 스크립트 중 일부
 </details>
+&nbsp;
+
+## 플레이 영상
+
+## BGM
