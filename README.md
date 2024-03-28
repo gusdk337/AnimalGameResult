@@ -393,3 +393,11 @@ public class GameOverLine : MonoBehaviour
 ## 플레이 영상
 
 ## BGM
+
+https://github.com/gusdk337/AnimalGameResult/assets/51481890/fa2ba99d-a19c-47a1-b7a0-a953ebefe7b5
+
+▲ 타이틀 음악 직접 제작
+
+https://github.com/gusdk337/AnimalGameResult/assets/51481890/4eeee515-dac9-49a3-99f9-28f933c40238
+
+▲ 메인 BGM 직접 제작
