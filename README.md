@@ -23,11 +23,20 @@ https://play.google.com/store/apps/details?id=com.crunkymacaron.animalgame
 
 &nbsp;
 
+## ▶️플레이 영상
+
+https://youtu.be/1C5ThX4oCv0
+
+&nbsp;
+
 ## ❗핵심 기능
 1. 튜토리얼
    > - InfoManager를 통해 신규유저 판독
    > - EventManager를 활용하여 신규유저일 때 이벤트 발동
    > - 이전 버튼과 다음 버튼을 이용하여 이미지를 앞뒤로 넘겨 튜토리얼 가능
+
+     ![튜토리얼](https://github.com/gusdk337/AnimalGameResult/assets/51481890/e40e0b74-46b1-4520-8f57-68795936d298)
+
 
 <details>
  <summary>코드 보기</summary>
@@ -206,6 +215,8 @@ public class UITutorial : MonoBehaviour
    > - 각각의 동물들이 한 스크립트를 사용중이기 때문에 static을 사용하여 동물이 합쳐질 때 하나의 동물이 생성되게 함
    > - EventManager를 활용하여 점수 추가
 
+    ![동물합치기](https://github.com/gusdk337/AnimalGameResult/assets/51481890/4b4d94fa-eddf-4ec9-adb6-d990132e2f74)
+
 <details>
  <summary>코드 보기</summary>
  
@@ -316,6 +327,8 @@ public class UITutorial : MonoBehaviour
    > - 게임오버라인에 특정 시간동안 동물이 머물러 있으면 게임 오버
    > - InfoManager에 베스트스코어 저장
 
+    ![게임오버](https://github.com/gusdk337/AnimalGameResult/assets/51481890/408689a1-ca8d-4bae-9b55-f1434e3fe918)
+
 <details>
  <summary>코드 보기</summary>
 
@@ -392,8 +405,6 @@ public class GameOverLine : MonoBehaviour
 ▲ GameMain 스크립트 중 일부
 </details>
 &nbsp;
-
-## ▶️플레이 영상
 
 ## 🎶BGM
 
